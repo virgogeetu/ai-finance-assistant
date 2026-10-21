@@ -2,6 +2,11 @@
 
 All changes made to this project, newest first.
 
+## 2026-10-21 — Published on GitHub
+
+- Public repository: https://github.com/virgogeetu/ai-finance-assistant (branch `main`, 4 commits, 78 files). Verified on GitHub that no `.env`, secrets, cache or local-tool files were uploaded; API keys stay only on the local machine.
+- Installed the official GitHub CLI (`winget install GitHub.cli`, v2.103.0) and signed in as `virgogeetu` for pushing.
+
 ## 2026-10-21 — Guardrails for public hosting
 
 **Security fix**

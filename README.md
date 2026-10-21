@@ -5,6 +5,8 @@ A multi-agent financial-education assistant: six specialised agents orchestrated
 
 > Educational tool only. It does not provide personalised investment, tax or legal advice.
 
+**Source code:** https://github.com/virgogeetu/ai-finance-assistant
+
 ## Highlights
 
 - **Six agents, one conversation.** Concepts, portfolio review, market snapshot, goal planning, news and taxes, routed by an LLM (with a keyword fallback) and able to hand off to each other ("Why is NVDA down?" → market + news).
