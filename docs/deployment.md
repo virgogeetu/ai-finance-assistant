@@ -24,6 +24,10 @@ Secrets are entered in TOML format, one per line, for example `LLM_PROVIDER = "o
 
 If you add API keys, keep costs under control: set a monthly spending limit in your OpenAI account, and consider making the app private (app **Settings** → **Sharing** → only specific viewers).
 
+### Guardrails
+
+The app ships with protections for public hosting (misuse filter, prompt-injection filter, personal-data redaction, usage limits, file limits, hidden error details). Limits can be tuned with secrets such as `QUESTIONS_PER_MINUTE = "5"`. See [security.md](security.md).
+
 ### Updating the site
 
 Commit and push to `main`; Streamlit Cloud picks up the change and restarts the app within a minute or two.

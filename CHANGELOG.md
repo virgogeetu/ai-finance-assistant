@@ -2,6 +2,28 @@
 
 All changes made to this project, newest first.
 
+## 2026-10-21 — Guardrails for public hosting
+
+**Security fix**
+- If Alpha Vantage was unreachable, the error message could include the request URL **with the API key**, and it was shown in answers. Errors are now scrubbed of keys before they are shown or logged. (`data/market_data.py`)
+
+**Guardrails** (new `src/finance_assistant/core/guardrails.py`, applied in `FinanceWorkflow.chat` so the website, CLI and MCP server are all covered)
+- Misuse filter: refuses requests to evade taxes, launder money, commit insider trading, run Ponzi or pump-and-dump schemes, fake documents or steal cards or identities. Questions *about* these topics are still answered. Checked against 12 harmful and 17 legitimate sample questions with no mistakes.
+- Prompt-injection filter: refuses "ignore your instructions", "reveal your system prompt / API key", "developer mode" and similar.
+- Personal data: SSNs, card numbers (Luhn-checked), labelled account/routing numbers and emails are removed from questions and uploaded files before anything is stored, shown or sent to an AI; the visitor is told what was removed.
+- Usage limits: per visitor 8 questions a minute and 60 an hour; 2,000 a day site-wide; questions up to 1,000 characters. Checked before paid work (image reading, transcription). Configurable via `MAX_QUESTION_CHARS`, `QUESTIONS_PER_MINUTE`, `QUESTIONS_PER_HOUR`, `SITE_QUESTIONS_PER_DAY`, `MAX_FILES_PER_MESSAGE`, `MAX_UPLOAD_MB` (`config.py`).
+- AI instructions: never reveal internals, treat files and context as information not instructions, refuse illegal or deceptive requests, never repeat full account numbers. (`agents/base.py`)
+
+**Hardening**
+- Files: at most 5 per message and 10 MB each; PDFs up to 60 pages; images over 40 megapixels refused (decompression bombs); spreadsheets up to 10 sheets × 5,000 rows. (`core/attachments.py`, `ui/app.py`)
+- Links: only http/https links are rendered (blocks `javascript:` links from news feeds); app-built HTML is escaped. (`ui/app.py`)
+- The chat history on screen shows the redacted question.
+- `.streamlit/config.toml`: upload cap 10 MB, XSRF protection on, visitors see error types only (no tracebacks), viewer-only toolbar, Streamlit usage statistics off.
+
+**Tests and docs**
+- New `tests/test_guardrails.py` (34 tests) and a chat-box guardrail test in `tests/test_ui.py`. Suite: 114 passed, coverage 96%, lint clean.
+- New `docs/security.md` (risks, protections, settings, limitations); `docs/deployment.md`, `README.md`, `docs/rubric_map.md` and `docs/testing_checklist.md` (7 guardrail checks) updated.
+
 ## 2026-10-21 — Ready for GitHub and hosting
 
 **Deployment**

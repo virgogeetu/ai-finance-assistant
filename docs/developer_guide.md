@@ -86,7 +86,7 @@ Implement `name`, `quote(symbol)`, `daily(symbol)` and `news(tickers)`, returnin
 ## Testing and quality
 
 ```bash
-pytest                      # 79 offline tests: unit, integration, MCP, UI smoke tests
+pytest                      # 114 offline tests: unit, integration, MCP, UI smoke tests
 pytest --cov                # coverage report; fails under 90% (currently ~96% of src/ and mcp_server/)
 ruff check .                # lint (config in pyproject.toml)
 python scripts/run_tests_without_pytest.py   # minimal runner if pytest isn't installed

@@ -15,6 +15,7 @@ A multi-agent financial-education assistant: six specialised agents orchestrated
 - **Your files and your voice.** Attach PDFs, scans, photos, Word, Excel or CSV and ask about them; ask questions out loud.
 - **Soft, friendly design.** Warm colors, rounded cards, a larger rounded font, emoji tab icons, and layouts that keep every number readable on smaller screens.
 - **Built-in help for beginners.** ⓘ tooltips on every input and number, 💡 "how to read this" lines under every chart, a first-visit welcome tour, a Help tab with a searchable 104-term glossary, explanations of every number, and FAQs.
+- **Safe to host publicly.** Refuses requests to commit fraud or evade taxes, resists prompt injection, removes card and Social Security numbers before anything is stored or sent to an AI, never shows API keys, and limits usage per visitor and per day.
 - **Runs anywhere.** Fully offline with no keys (sample data, tool-computed drafts); OpenAI, Gemini or Claude when configured.
 
 ## Quick start
@@ -45,6 +46,7 @@ Other entry points: `python scripts/cli.py` (terminal chat), `python mcp_server/
 | [docs/testing_checklist.md](docs/testing_checklist.md) | Step-by-step test pass: automated, manual UI, live keys, MCP, content accuracy |
 | [docs/deployment.md](docs/deployment.md) | Hosting on Streamlit Community Cloud or Docker |
 | [docs/security.md](docs/security.md) | Guardrails: misuse, prompt injection, personal data, keys, usage limits, files |
+| [docs/security.md](docs/security.md) | Guardrails: misuse, prompt injection, personal data, keys, usage limits, files |
 | [docs/demo_script.md](docs/demo_script.md) | Demo video script |
 | [CHANGELOG.md](CHANGELOG.md) | Every change, newest first |
 
@@ -64,7 +66,7 @@ src/finance_assistant/
   workflow/          router.py, graph.py (LangGraph orchestration + memory + fallbacks), followups.py
 ui/app.py            Streamlit: Ask · Portfolio · Markets · Goals
 mcp_server/          MCP server (8 tools + glossary resource) + Claude Desktop config example
-tests/               79 offline tests: unit, integration, MCP, headless UI (~96% coverage)
+tests/               114 offline tests: unit, integration, MCP, headless UI (~96% coverage)
 docs/                guides listed above
 ```
 
@@ -80,7 +82,7 @@ docs/                guides listed above
 | 6. RAG | FAISS, chunking, embeddings, hybrid relevance scoring, attribution | `rag/` |
 | 7. UI | Chat with files and voice, portfolio dashboard with stress test, market trends, goal planner | `ui/app.py` |
 | 8. Real-time data | Alpha Vantage, caching, rate limits, retries, stale fallback, freshness labels | `data/` |
-| 9. Testing | 79 offline tests, ~96% coverage (90% enforced), lint-clean | `tests/`, `pyproject.toml` |
+| 9. Testing | 114 offline tests, ~96% coverage (90% enforced), lint-clean | `tests/`, `pyproject.toml` |
 | 10. Docs & deploy | Guides, rubric map, roadmap, demo script, Dockerfile | `docs/`, `Dockerfile` |
 | 11. MCP (stretch) | 8 tools + glossary resource; `mcp` 1.x and 2.x | `mcp_server/` |
 
