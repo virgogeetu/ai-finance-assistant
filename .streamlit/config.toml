@@ -1,0 +1,23 @@
+# "Soft and friendly" theme: warm cream background, mint sidebar, rounded corners, larger rounded font.
+[theme]
+base = "light"
+primaryColor = "#3E8E6E"              # soft green (buttons, active tab, links)
+backgroundColor = "#FBF8F3"           # warm cream
+secondaryBackgroundColor = "#F3EEE6"  # inputs, expanders, chat bubbles
+textColor = "#2B3A42"                 # soft ink (high contrast on cream)
+borderColor = "#E6DDD0"
+showWidgetBorder = true
+linkColor = "#2F7A5C"
+font = "Nunito:https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap, sans-serif"
+headingFont = "Nunito:https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap, sans-serif"
+headingFontWeights = [800, 700, 700]
+baseFontSize = 17
+baseRadius = "1rem"
+buttonRadius = "full"
+# pastel but readable chart colors (green, blue, amber, coral, lavender, sand, sage)
+chartCategoricalColors = ["#3E8E6E", "#5B9BD5", "#E0A458", "#E07A6F", "#9B84C9", "#D9B779", "#8DB8A8"]
+
+[theme.sidebar]
+backgroundColor = "#EAF4EE"           # soft mint
+secondaryBackgroundColor = "#FFFFFF"
+borderColor = "#D5E6DC"

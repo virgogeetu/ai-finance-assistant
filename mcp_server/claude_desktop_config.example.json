@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "ai-finance-assistant": {
+      "command": "/ABSOLUTE/PATH/TO/ai-finance-assistant/.venv/bin/python",
+      "args": ["/ABSOLUTE/PATH/TO/ai-finance-assistant/mcp_server/server.py"],
+      "env": {
+        "LLM_PROVIDER": "mock",
+        "MARKET_DATA_PROVIDER": "auto",
+        "ALPHA_VANTAGE_API_KEY": ""
+      }
+    }
+  }
+}

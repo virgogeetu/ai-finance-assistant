@@ -1,0 +1,30 @@
+# Orchestration
+langgraph>=0.2
+langchain-core>=0.3
+# LLM providers (install the one you use)
+langchain-google-genai>=2.0
+langchain-openai>=0.2
+langchain-anthropic>=0.3
+# Retrieval
+faiss-cpu>=1.8
+numpy>=1.26
+# sentence-transformers>=3.0  # optional: better local embeddings; pulls in PyTorch (GBs), so it is off by default
+# Market data
+requests>=2.31
+yfinance>=0.2.40             # optional fallback provider
+# File uploads in chat (PDF, Word, Excel)
+pypdf>=5.0
+python-docx>=1.1
+openpyxl>=3.1
+pillow>=10.0
+# UI
+streamlit>=1.59              # dialogs, stateful tabs, file/voice chat input, theme fonts
+plotly>=5.22
+pandas>=2.2
+# MCP (stretch)
+mcp>=1.2             # 1.x (FastMCP) and 2.x (MCPServer) both supported
+# Dev
+pytest>=8.0
+pytest-cov>=5.0
+ruff>=0.6
+python-dotenv>=1.0

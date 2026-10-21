@@ -1,0 +1,30 @@
+[project]
+name = "ai-finance-assistant"
+version = "0.1.0"
+description = "Democratizing Financial Literacy Through Intelligent Conversational AI"
+requires-python = ">=3.10"
+
+[tool.pytest.ini_options]
+pythonpath = ["src", "."]
+testpaths = ["tests"]
+
+[tool.coverage.run]
+source = ["src/finance_assistant", "mcp_server"]
+
+[tool.coverage.report]
+show_missing = true
+fail_under = 90
+
+[tool.ruff]
+line-length = 130
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "B"]
+
+[tool.ruff.lint.per-file-ignores]
+"ui/app.py" = ["E402"]                        # sys.path is set before importing the package
+"ui/help_content.py" = ["E501"]               # prose: long help text lines are easier to edit unwrapped
+"scripts/*" = ["E402"]
+"mcp_server/server.py" = ["E402"]
+"src/finance_assistant/agents/__init__.py" = ["F401"]   # re-exports

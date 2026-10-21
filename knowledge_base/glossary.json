@@ -1,0 +1,418 @@
+[
+ {
+  "term": "Annual Percentage Rate (APR)",
+  "definition": "The yearly cost of borrowing, including interest and certain fees, expressed as a percentage."
+ },
+ {
+  "term": "Annual Percentage Yield (APY)",
+  "definition": "The yearly return on a deposit including the effect of compounding."
+ },
+ {
+  "term": "Asset",
+  "definition": "Anything you own that has economic value, such as cash, investments, or property."
+ },
+ {
+  "term": "Asset Allocation",
+  "definition": "How a portfolio is divided among asset classes such as stocks, bonds, and cash."
+ },
+ {
+  "term": "Asset Class",
+  "definition": "A group of investments with similar characteristics, such as equities, fixed income, or real estate."
+ },
+ {
+  "term": "Basis Point",
+  "definition": "One hundredth of a percentage point (0.01%); 50 basis points equals 0.50%."
+ },
+ {
+  "term": "Bear Market",
+  "definition": "A prolonged market decline, commonly defined as a drop of 20% or more from a recent peak."
+ },
+ {
+  "term": "Benchmark",
+  "definition": "A standard, usually an index, used to measure an investment's performance."
+ },
+ {
+  "term": "Beta",
+  "definition": "A measure of how much an investment moves relative to the overall market."
+ },
+ {
+  "term": "Bid-Ask Spread",
+  "definition": "The difference between the highest price a buyer will pay and the lowest price a seller will accept."
+ },
+ {
+  "term": "Blue-Chip Stock",
+  "definition": "Shares of a large, well-established, financially stable company."
+ },
+ {
+  "term": "Bond",
+  "definition": "A loan to a government or company that pays interest and returns principal at maturity."
+ },
+ {
+  "term": "Bond Ladder",
+  "definition": "A set of bonds with staggered maturity dates to spread out interest-rate and reinvestment risk."
+ },
+ {
+  "term": "Brokerage Account",
+  "definition": "An account used to buy and sell investments such as stocks, bonds, and funds."
+ },
+ {
+  "term": "Bull Market",
+  "definition": "A sustained period of rising market prices."
+ },
+ {
+  "term": "Capital Gain",
+  "definition": "The profit from selling an asset for more than its purchase price."
+ },
+ {
+  "term": "Capital Loss",
+  "definition": "The loss from selling an asset for less than its purchase price."
+ },
+ {
+  "term": "Cash Equivalents",
+  "definition": "Highly liquid, low-risk short-term investments such as money market funds and T-bills."
+ },
+ {
+  "term": "Certificate of Deposit (CD)",
+  "definition": "A bank deposit that pays a fixed rate for a set term, usually with a penalty for early withdrawal."
+ },
+ {
+  "term": "Compound Interest",
+  "definition": "Interest earned on both the original principal and previously earned interest."
+ },
+ {
+  "term": "Consumer Price Index (CPI)",
+  "definition": "A measure of the average change over time in prices paid by consumers for goods and services."
+ },
+ {
+  "term": "Correlation",
+  "definition": "A statistic from -1 to +1 describing how two investments move relative to each other."
+ },
+ {
+  "term": "Cost Basis",
+  "definition": "The original value of an asset for tax purposes, usually the purchase price plus costs."
+ },
+ {
+  "term": "Coupon",
+  "definition": "The periodic interest payment a bond pays to its holder."
+ },
+ {
+  "term": "Credit Score",
+  "definition": "A number summarizing a borrower's creditworthiness based on their credit history."
+ },
+ {
+  "term": "Credit Utilization",
+  "definition": "The share of available revolving credit that you are currently using."
+ },
+ {
+  "term": "Debt-to-Income Ratio (DTI)",
+  "definition": "Monthly debt payments divided by gross monthly income, used by lenders to assess affordability."
+ },
+ {
+  "term": "Default",
+  "definition": "Failure to repay a debt according to its terms."
+ },
+ {
+  "term": "Diversification",
+  "definition": "Spreading investments across many holdings to reduce the impact of any single loss."
+ },
+ {
+  "term": "Dividend",
+  "definition": "A distribution of a company's profits to its shareholders."
+ },
+ {
+  "term": "Dividend Reinvestment Plan (DRIP)",
+  "definition": "A program that automatically uses dividends to buy more shares."
+ },
+ {
+  "term": "Dividend Yield",
+  "definition": "Annual dividends per share divided by the share price."
+ },
+ {
+  "term": "Dollar-Cost Averaging",
+  "definition": "Investing a fixed amount at regular intervals regardless of price."
+ },
+ {
+  "term": "Drawdown",
+  "definition": "The percentage decline from a peak value to a subsequent low."
+ },
+ {
+  "term": "Duration",
+  "definition": "A measure of a bond's price sensitivity to changes in interest rates, expressed in years."
+ },
+ {
+  "term": "Earnings Per Share (EPS)",
+  "definition": "A company's net profit divided by its number of outstanding shares."
+ },
+ {
+  "term": "Emergency Fund",
+  "definition": "Cash reserved for unexpected expenses, often three to six months of essential costs."
+ },
+ {
+  "term": "Equity",
+  "definition": "Ownership interest, such as shares in a company or the value of a home minus its mortgage."
+ },
+ {
+  "term": "Exchange-Traded Fund (ETF)",
+  "definition": "A fund holding a basket of securities that trades on an exchange like a stock."
+ },
+ {
+  "term": "Expense Ratio",
+  "definition": "The annual fee a fund charges, expressed as a percentage of assets."
+ },
+ {
+  "term": "FDIC Insurance",
+  "definition": "U.S. government-backed protection for bank deposits up to coverage limits."
+ },
+ {
+  "term": "Fiduciary",
+  "definition": "A professional legally obligated to act in a client's best interest."
+ },
+ {
+  "term": "Fixed Income",
+  "definition": "Investments, such as bonds, that pay a set stream of income."
+ },
+ {
+  "term": "Front-End Load",
+  "definition": "A sales charge paid when buying shares of some mutual funds."
+ },
+ {
+  "term": "Fundamental Analysis",
+  "definition": "Evaluating a security by studying financial statements, business quality, and economic factors."
+ },
+ {
+  "term": "Future Value",
+  "definition": "The value of a current amount at a future date after growth at a given rate."
+ },
+ {
+  "term": "Glide Path",
+  "definition": "The schedule by which a target-date fund shifts from stocks toward bonds over time."
+ },
+ {
+  "term": "Gross Domestic Product (GDP)",
+  "definition": "The total value of goods and services produced in an economy over a period."
+ },
+ {
+  "term": "Growth Stock",
+  "definition": "A stock of a company expected to grow earnings faster than average."
+ },
+ {
+  "term": "Health Savings Account (HSA)",
+  "definition": "A tax-advantaged account for medical expenses available with a qualifying high-deductible health plan."
+ },
+ {
+  "term": "High-Yield Bond",
+  "definition": "A bond rated below investment grade that pays higher interest due to greater default risk."
+ },
+ {
+  "term": "Index",
+  "definition": "A measure of the performance of a group of securities, such as the S&P 500."
+ },
+ {
+  "term": "Index Fund",
+  "definition": "A fund designed to track the performance of a specific market index."
+ },
+ {
+  "term": "Inflation",
+  "definition": "The general rise in prices that reduces the purchasing power of money."
+ },
+ {
+  "term": "Initial Public Offering (IPO)",
+  "definition": "A company's first sale of shares to the public."
+ },
+ {
+  "term": "Interest Rate Risk",
+  "definition": "The risk that rising interest rates reduce the value of existing bonds."
+ },
+ {
+  "term": "Investment Grade",
+  "definition": "Bonds rated BBB-/Baa3 or higher, considered to have relatively low default risk."
+ },
+ {
+  "term": "Individual Retirement Account (IRA)",
+  "definition": "A personal tax-advantaged retirement account."
+ },
+ {
+  "term": "Large-Cap",
+  "definition": "Companies with a large market capitalization, typically above about $10 billion."
+ },
+ {
+  "term": "Liability",
+  "definition": "A financial obligation or debt you owe."
+ },
+ {
+  "term": "Limit Order",
+  "definition": "An order to buy or sell at a specified price or better."
+ },
+ {
+  "term": "Liquidity",
+  "definition": "How quickly an asset can be converted to cash without significant loss of value."
+ },
+ {
+  "term": "Market Capitalization",
+  "definition": "Share price multiplied by the number of outstanding shares."
+ },
+ {
+  "term": "Market Order",
+  "definition": "An order to buy or sell immediately at the best available price."
+ },
+ {
+  "term": "Maturity",
+  "definition": "The date on which a bond's principal is due to be repaid."
+ },
+ {
+  "term": "Money Market Fund",
+  "definition": "A mutual fund investing in short-term, high-quality debt, aiming for stability and liquidity."
+ },
+ {
+  "term": "Mutual Fund",
+  "definition": "A pooled investment vehicle priced once per day at net asset value."
+ },
+ {
+  "term": "Net Asset Value (NAV)",
+  "definition": "A fund's total assets minus liabilities, divided by shares outstanding."
+ },
+ {
+  "term": "Net Worth",
+  "definition": "Total assets minus total liabilities."
+ },
+ {
+  "term": "Nominal Return",
+  "definition": "Investment return before adjusting for inflation."
+ },
+ {
+  "term": "Portfolio",
+  "definition": "The collection of investments owned by a person or institution."
+ },
+ {
+  "term": "Preferred Stock",
+  "definition": "A class of stock with priority over common stock for dividends, usually without voting rights."
+ },
+ {
+  "term": "Present Value",
+  "definition": "The current worth of a future amount, discounted at a given rate."
+ },
+ {
+  "term": "Price-to-Book Ratio (P/B)",
+  "definition": "Share price divided by book value per share."
+ },
+ {
+  "term": "Price-to-Earnings Ratio (P/E)",
+  "definition": "Share price divided by earnings per share."
+ },
+ {
+  "term": "Principal",
+  "definition": "The original amount of money invested or borrowed."
+ },
+ {
+  "term": "Real Estate Investment Trust (REIT)",
+  "definition": "A company that owns or finances income-producing real estate and pays out most of its income."
+ },
+ {
+  "term": "Real Return",
+  "definition": "Investment return after subtracting inflation."
+ },
+ {
+  "term": "Rebalancing",
+  "definition": "Adjusting a portfolio back to its target asset allocation."
+ },
+ {
+  "term": "Required Minimum Distribution (RMD)",
+  "definition": "The minimum amount that must be withdrawn annually from certain retirement accounts after a set age."
+ },
+ {
+  "term": "Risk Tolerance",
+  "definition": "An investor's willingness to accept investment losses and volatility."
+ },
+ {
+  "term": "Robo-Advisor",
+  "definition": "An automated online service that builds and manages portfolios using algorithms."
+ },
+ {
+  "term": "Roth IRA",
+  "definition": "An IRA funded with after-tax money whose qualified withdrawals are tax-free."
+ },
+ {
+  "term": "Rule of 72",
+  "definition": "A shortcut for doubling time: 72 divided by the annual return rate."
+ },
+ {
+  "term": "S&P 500",
+  "definition": "An index of about 500 large U.S. companies weighted by market capitalization."
+ },
+ {
+  "term": "Sector",
+  "definition": "A segment of the economy, such as technology, healthcare, or energy."
+ },
+ {
+  "term": "Sharpe Ratio",
+  "definition": "Excess return over the risk-free rate divided by standard deviation."
+ },
+ {
+  "term": "Short Selling",
+  "definition": "Selling borrowed shares hoping to buy them back later at a lower price."
+ },
+ {
+  "term": "Small-Cap",
+  "definition": "Companies with a relatively small market capitalization, typically under about $2 billion."
+ },
+ {
+  "term": "Standard Deviation",
+  "definition": "A statistical measure of how widely returns vary around their average."
+ },
+ {
+  "term": "Stock",
+  "definition": "A share of ownership in a company."
+ },
+ {
+  "term": "Target-Date Fund",
+  "definition": "A fund that automatically shifts its allocation as a target retirement year approaches."
+ },
+ {
+  "term": "Tax-Loss Harvesting",
+  "definition": "Selling investments at a loss to offset taxable gains."
+ },
+ {
+  "term": "Ticker Symbol",
+  "definition": "A unique series of letters identifying a publicly traded security."
+ },
+ {
+  "term": "Total Return",
+  "definition": "Price change plus income such as dividends or interest over a period."
+ },
+ {
+  "term": "Treasury Bill (T-Bill)",
+  "definition": "Short-term U.S. government debt maturing in one year or less."
+ },
+ {
+  "term": "Treasury Inflation-Protected Securities (TIPS)",
+  "definition": "U.S. Treasury bonds whose principal adjusts with inflation."
+ },
+ {
+  "term": "Value Stock",
+  "definition": "A stock trading at a low price relative to measures like earnings or book value."
+ },
+ {
+  "term": "Vesting",
+  "definition": "The process by which employer contributions become fully owned by the employee over time."
+ },
+ {
+  "term": "Volatility",
+  "definition": "The degree of variation in an investment's price over time."
+ },
+ {
+  "term": "Wash Sale",
+  "definition": "Buying a substantially identical security within 30 days of selling it at a loss, which disallows the loss for taxes."
+ },
+ {
+  "term": "Yield to Maturity (YTM)",
+  "definition": "The total annual return on a bond if held to maturity, including coupons and price change."
+ },
+ {
+  "term": "401(k)",
+  "definition": "An employer-sponsored retirement savings plan funded through payroll deductions."
+ },
+ {
+  "term": "529 Plan",
+  "definition": "A tax-advantaged savings plan for education expenses."
+ }
+]

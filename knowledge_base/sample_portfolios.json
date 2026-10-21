@@ -1,0 +1,46 @@
+{
+ "three_fund_beginner": {
+  "description": "Diversified three-fund portfolio for a new investor (moderate risk).",
+  "risk_profile": "moderate",
+  "cash": 1500,
+  "holdings": [
+   {"symbol": "VTI", "shares": 40, "cost_basis": 240.0},
+   {"symbol": "VXUS", "shares": 120, "cost_basis": 58.0},
+   {"symbol": "BND", "shares": 90, "cost_basis": 72.0}
+  ]
+ },
+ "tech_heavy": {
+  "description": "Concentrated growth portfolio heavy in large-cap technology (aggressive).",
+  "risk_profile": "aggressive",
+  "cash": 500,
+  "holdings": [
+   {"symbol": "NVDA", "shares": 120, "cost_basis": 60.0},
+   {"symbol": "AAPL", "shares": 50, "cost_basis": 180.0},
+   {"symbol": "MSFT", "shares": 25, "cost_basis": 330.0},
+   {"symbol": "TSLA", "shares": 20, "cost_basis": 270.0},
+   {"symbol": "QQQ", "shares": 10, "cost_basis": 400.0}
+  ]
+ },
+ "retiree_income": {
+  "description": "Income-focused portfolio for someone near or in retirement (conservative).",
+  "risk_profile": "conservative",
+  "cash": 20000,
+  "holdings": [
+   {"symbol": "BND", "shares": 1200, "cost_basis": 78.0},
+   {"symbol": "AGG", "shares": 500, "cost_basis": 103.0},
+   {"symbol": "VTI", "shares": 150, "cost_basis": 200.0},
+   {"symbol": "JNJ", "shares": 100, "cost_basis": 155.0},
+   {"symbol": "PG", "shares": 80, "cost_basis": 140.0},
+   {"symbol": "VNQ", "shares": 150, "cost_basis": 85.0}
+  ]
+ },
+ "single_stock": {
+  "description": "Employee holding mostly company stock (concentration risk example).",
+  "risk_profile": "moderate",
+  "cash": 3000,
+  "holdings": [
+   {"symbol": "JPM", "shares": 300, "cost_basis": 120.0},
+   {"symbol": "SPY", "shares": 10, "cost_basis": 450.0}
+  ]
+ }
+}
