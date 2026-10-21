@@ -43,6 +43,7 @@ Other entry points: `python scripts/cli.py` (terminal chat), `python mcp_server/
 | [docs/roadmap.md](docs/roadmap.md) | Features beyond the brief and the technical roadmap |
 | [docs/rubric_map.md](docs/rubric_map.md) | Each evaluation criterion mapped to code and tests |
 | [docs/testing_checklist.md](docs/testing_checklist.md) | Step-by-step test pass: automated, manual UI, live keys, MCP, content accuracy |
+| [docs/deployment.md](docs/deployment.md) | Hosting on Streamlit Community Cloud or Docker |
 | [docs/demo_script.md](docs/demo_script.md) | Demo video script |
 | [CHANGELOG.md](CHANGELOG.md) | Every change, newest first |
 

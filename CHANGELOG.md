@@ -2,6 +2,16 @@
 
 All changes made to this project, newest first.
 
+## 2026-10-21 — Ready for GitHub and hosting
+
+**Deployment**
+- Initialized a git repository (branch `main`) and made the first commit (74 files). A scan confirmed no API keys are in tracked files; `.env` stays local.
+- `.gitignore`: also ignores `.streamlit/secrets.toml`, `.claude/`, `.pytest_cache/`, `.ruff_cache/`, `.coverage`, `*.egg-info/`.
+- New `.gitattributes`: files are stored with Unix (LF) line endings, which Linux hosting servers expect.
+- `requirements.txt`: `streamlit>=1.59` (the app uses dialogs, stateful tabs, file/voice chat input and theme fonts from 1.59); `sentence-transformers` commented out because it pulls in PyTorch (several GB), too large for free hosting. The app already falls back to its built-in embedder.
+- New `docs/deployment.md`: step-by-step Streamlit Community Cloud setup, demo vs. full-AI modes and their costs, secrets, updating, troubleshooting, and Docker. Linked from `README.md`.
+- Verified a fresh clone (no `.env`, no cache, no API keys) passes all 79 tests.
+
 ## 2026-10-20 — Inline tips everywhere (help option 3)
 
 **User experience**
