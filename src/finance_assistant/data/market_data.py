@@ -14,6 +14,7 @@ import time
 from datetime import date, datetime, timedelta, timezone
 
 from ..config import Settings
+from ..core.guardrails import redact_secrets
 from .cache import TTLCache
 from .rate_limiter import RateLimiter
 
@@ -66,10 +67,10 @@ class AlphaVantageProvider:
                 break
             except (requests.ConnectionError, requests.Timeout) as exc:  # transient: retry with backoff
                 if attempt == self.retries:
-                    raise ProviderError(f"Alpha Vantage unreachable: {exc}") from exc
+                    raise ProviderError(redact_secrets(f"Alpha Vantage unreachable: {exc}")) from exc
                 time.sleep(self.backoff * 2 ** attempt)
             except Exception as exc:
-                raise ProviderError(f"Alpha Vantage request failed: {exc}") from exc
+                raise ProviderError(redact_secrets(f"Alpha Vantage request failed: {exc}")) from exc
         if "Note" in data or "Information" in data:  # AV signals throttling this way
             raise RateLimited(data.get("Note") or data.get("Information"))
         if "Error Message" in data:
@@ -221,10 +222,10 @@ class MarketDataService:
                 self.cache.set(key, value, ttl)
                 return {**value, "freshness": _freshness(p.name, time.time(), "live")}
             except ProviderError as exc:
-                errors.append(f"{p.name}: {exc}")
+                errors.append(redact_secrets(f"{p.name}: {exc}"))
                 log.info("provider %s failed for %s: %s", p.name, key, exc)
             except Exception as exc:  # network/library errors
-                errors.append(f"{p.name}: {exc}")
+                errors.append(redact_secrets(f"{p.name}: {exc}"))
         stale = self.cache.get(key, allow_stale=True)
         if stale:
             value, stored_at, _ = stale

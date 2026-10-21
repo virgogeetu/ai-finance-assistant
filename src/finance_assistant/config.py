@@ -53,6 +53,14 @@ class Settings:
     max_agents_per_turn: int = 3
     history_window: int = 8        # messages passed to agents
 
+    # Guardrails (public deployment); override with env vars or hosting secrets
+    max_question_chars: int = field(default_factory=lambda: int(_env("MAX_QUESTION_CHARS", "1000")))
+    questions_per_minute: int = field(default_factory=lambda: int(_env("QUESTIONS_PER_MINUTE", "8")))
+    questions_per_hour: int = field(default_factory=lambda: int(_env("QUESTIONS_PER_HOUR", "60")))
+    site_questions_per_day: int = field(default_factory=lambda: int(_env("SITE_QUESTIONS_PER_DAY", "2000")))
+    max_files_per_message: int = field(default_factory=lambda: int(_env("MAX_FILES_PER_MESSAGE", "5")))
+    max_upload_mb: int = field(default_factory=lambda: int(_env("MAX_UPLOAD_MB", "10")))
+
     # Paths
     kb_dir: Path = ROOT / "knowledge_base"
     cache_dir: Path = ROOT / ".cache"

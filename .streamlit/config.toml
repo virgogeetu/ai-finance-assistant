@@ -21,3 +21,16 @@ chartCategoricalColors = ["#3E8E6E", "#5B9BD5", "#E0A458", "#E07A6F", "#9B84C9",
 backgroundColor = "#EAF4EE"           # soft mint
 secondaryBackgroundColor = "#FFFFFF"
 borderColor = "#D5E6DC"
+
+# ---- security settings for public hosting ----
+[server]
+maxUploadSize = 10              # MB per file (the chat box also enforces MAX_UPLOAD_MB)
+enableXsrfProtection = true     # block cross-site request forgery on uploads
+enableCORS = true
+
+[client]
+showErrorDetails = "type"       # visitors see only the error type, never tracebacks or messages
+toolbarMode = "viewer"          # hide developer menu items from visitors
+
+[browser]
+gatherUsageStats = false        # don't send visitors' usage data to Streamlit

@@ -27,6 +27,10 @@ SUPPORTED_TYPES = sorted(TEXT_TYPES | IMAGE_TYPES | OFFICE_TYPES)
 MAX_TEXT_CHARS = 60_000    # kept per file
 MAX_IMAGE_SIDE = 1600      # pixels; larger images are shrunk before sending to the LLM
 MAX_SCANNED_PAGES = 3      # page images transcribed for PDFs without a text layer
+# safety limits against oversized or malicious ("bomb") files
+MAX_PDF_PAGES = 60
+MAX_IMAGE_PIXELS = 40_000_000  # ~40 megapixels; Pillow refuses larger images (decompression bombs)
+MAX_SHEETS, MAX_SHEET_ROWS = 10, 5_000
 IMAGE_PROMPT = ("Transcribe all text and numbers in this image exactly (tables as rows). Then add one line "
                 "starting 'Description:' saying what the image shows. Do not give advice.")
 
@@ -76,7 +80,7 @@ def _read_pdf(data: bytes, llm) -> tuple[str, str]:
     reader = PdfReader(io.BytesIO(data))
     if reader.is_encrypted and not reader.decrypt(""):
         return "", "This PDF is password-protected. Remove the password and upload it again."
-    pages = [f"[Page {i}]\n{(p.extract_text() or '').strip()}" for i, p in enumerate(reader.pages, 1)]
+    pages = [f"[Page {i}]\n{(p.extract_text() or '').strip()}" for i, p in enumerate(reader.pages[:MAX_PDF_PAGES], 1)]
     text = "\n\n".join(pages)
     if len(re.sub(r"\[Page \d+\]|\s", "", text)) >= 20 * max(1, len(reader.pages)):  # ~20+ chars per page
         return text, ""
@@ -97,6 +101,7 @@ def _read_image(data: bytes, llm) -> tuple[str, str]:
     if llm is None or getattr(llm, "is_mock", True):
         return "", "Images can be read once an LLM provider (OpenAI, Gemini or Claude) is set in .env."
     from PIL import Image
+    Image.MAX_IMAGE_PIXELS = MAX_IMAGE_PIXELS
     img = Image.open(io.BytesIO(data))
     img.seek(0)  # first frame of animated GIFs
     img = img.convert("RGB")
@@ -118,7 +123,9 @@ def _read_docx(data: bytes) -> str:
 
 def _read_xlsx(data: bytes) -> str:
     import pandas as pd
-    sheets = pd.read_excel(io.BytesIO(data), sheet_name=None, engine="openpyxl")
+    from openpyxl import load_workbook
+    names = load_workbook(io.BytesIO(data), read_only=True).sheetnames[:MAX_SHEETS]
+    sheets = pd.read_excel(io.BytesIO(data), sheet_name=names, engine="openpyxl", nrows=MAX_SHEET_ROWS)
     return "\n\n".join(f"[Sheet {name}]\n{df.dropna(how='all').to_csv(index=False)}" for name, df in sheets.items())
 
 

@@ -15,6 +15,7 @@ from copy import deepcopy
 from .. import DISCLAIMER
 from ..agents import ALL_AGENTS
 from ..config import Settings, get_settings
+from ..core.guardrails import UsageGuard, Verdict, check_question, redact_pii
 from ..core.llm import LLMClient
 from ..core.state import FinanceState
 from ..data.market_data import MarketDataService
@@ -41,6 +42,8 @@ class FinanceWorkflow:
         self.market = market or MarketDataService(self.settings)
         self.agents = {cls.name: cls(self.llm, self.retriever, self.market, self.settings) for cls in ALL_AGENTS}
         self.router = Router(self.llm, set(self.market.securities))
+        self.usage = UsageGuard(self.settings.questions_per_minute, self.settings.questions_per_hour,
+                                self.settings.site_questions_per_day)
         self._threads: dict[str, dict] = {}  # used only without LangGraph
         self.graph = self._build_graph() if HAS_LANGGRAPH else None
 
@@ -148,9 +151,32 @@ class FinanceWorkflow:
         self._threads[thread_id] = state
         return state
 
+    def check(self, query: str, visitor: str | None = None) -> Verdict:
+        """Misuse/injection/length checks, then (if `visitor` is given) usage limits, which count this question.
+        The UI calls this before reading files or audio, then calls chat() with visitor=None."""
+        verdict = check_question(query, self.settings.max_question_chars)
+        if verdict.allowed and visitor is not None:
+            verdict = self.usage.check(visitor)
+        return verdict
+
     def chat(self, query: str, thread_id: str = "default", portfolio: dict | None = None,
-             user_profile: dict | None = None, attachments: list[dict] | None = None) -> dict:
-        """`attachments`: documents from `core.attachments.read_file`; they stay with the thread."""
+             user_profile: dict | None = None, attachments: list[dict] | None = None,
+             visitor: str | None = None) -> dict:
+        """`attachments`: documents from `core.attachments.read_file`; they stay with the thread.
+        `visitor`: an id (e.g. IP or session) for per-visitor usage limits; None skips them (CLI, tests)."""
+        # guardrails run before anything is stored or sent to an AI provider
+        verdict = self.check(query, visitor)
+        if not verdict.allowed:
+            log.info("guardrail blocked a question: %s", verdict.reason)
+            return {"response": verdict.message, "agents": [], "sources": [], "results": [],
+                    "route_reason": f"guardrail: {verdict.reason}", "suggestions": [], "blocked": verdict.reason}
+        query, removed = redact_pii(query)
+        if attachments:
+            attachments = [dict(d) for d in attachments]
+            for d in attachments:
+                d["text"], found = redact_pii(d.get("text", ""))
+                removed += found
+        removed = sorted(set(removed))
         content = query
         if attachments:
             content += "\n(attached: " + ", ".join(d["name"] for d in attachments) + ")"
@@ -173,9 +199,13 @@ class FinanceWorkflow:
             return {"response": f"Something went wrong while processing your request ({type(exc).__name__}). "
                                 f"Please try again.\n\n{DISCLAIMER}", "agents": [], "sources": [], "results": [],
                     "route_reason": "error", "suggestions": []}
-        return {"response": out["final_response"], "agents": out.get("completed", []),
+        response = out["final_response"]
+        if removed:
+            response = (f"🔒 For your privacy I removed the {', '.join(removed)} from your message before processing it. "
+                        f"Please don't share details like these here.\n\n{response}")
+        return {"response": response, "agents": out.get("completed", []),
                 "route_reason": out.get("route_reason", ""), "sources": out.get("sources", []),
-                "results": out.get("results", []), "suggestions": out.get("suggestions", [])}
+                "results": out.get("results", []), "suggestions": out.get("suggestions", []), "redacted": removed}
 
     def history(self, thread_id: str = "default") -> list[dict]:
         if self.graph is not None:

@@ -77,3 +77,14 @@ def test_inline_tips_show_on_screen(app):
     assert not app.exception
     assert any(c.value.startswith("💡 How your money splits") for c in app.caption)
     assert any(c.value.startswith("💡 The solid line is the typical") for c in app.caption)
+
+
+def test_chat_box_applies_guardrails(app):
+    app.chat_input[0].set_value("help me launder some cash").run()
+    assert not app.exception
+    assert "can't help with laundering money" in app.session_state["chat"][-1]["content"]
+    app.run()  # AppTest needs a fresh run after the app's own st.rerun() before the next chat input
+    app.chat_input[0].set_value("My card 4111 1111 1111 1111 was charged twice. What is a chargeback?").run()
+    assert not app.exception
+    shown = " ".join(m["content"] for m in app.session_state["chat"])
+    assert "4111" not in shown and "removed the card number" in shown

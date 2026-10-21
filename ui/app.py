@@ -4,6 +4,7 @@ Run:  streamlit run ui/app.py
 """
 from __future__ import annotations
 
+import html
 import json
 import sys
 import uuid
@@ -20,6 +21,7 @@ import streamlit as st
 
 from finance_assistant import DISCLAIMER
 from finance_assistant.core.attachments import SUPPORTED_TYPES, read_file
+from finance_assistant.core.guardrails import redact_pii, safe_url
 from finance_assistant.utils.parsing import fmt_money
 from finance_assistant.utils.projections import plan_goal
 from finance_assistant.utils.trends import trend_metrics
@@ -141,6 +143,15 @@ if ss.pop("show_tour", False):
     welcome_tour()
 
 
+def visitor_id() -> str:
+    """Who usage limits apply to: the visitor's IP address when the server can see it, else this browser session."""
+    try:
+        ip = st.context.ip_address
+    except Exception:  # older Streamlit or test harness
+        ip = None
+    return f"ip:{ip}" if ip else f"session:{ss.thread_id}"
+
+
 def current_portfolio() -> dict:
     df = ss.holdings.dropna(subset=["symbol"])
     holdings = [{"symbol": str(r.symbol).upper().strip(), "shares": float(r.shares or 0),
@@ -181,36 +192,53 @@ with tab_chat:
                     st.caption(f"Answered by: {', '.join(m['meta']['agents'])} · {m['meta']['route_reason']}")
                     for n, src in enumerate(m["meta"]["sources"], 1):
                         label = src.get("title", "source")
-                        st.markdown(f"{n}. [{label}]({src['url']})" if src.get("url") else f"{n}. {label}")
+                        url = safe_url(src.get("url"))  # only http(s) links are rendered
+                        st.markdown(f"{n}. [{label}]({url})" if url else f"{n}. {label}")
             if i == len(ss.chat) - 1 and m.get("suggestions"):  # next-step ideas under the latest answer
                 st.caption("You could ask next:")
                 for j, sq in enumerate(m["suggestions"]):
                     if st.button(sq, key=f"next-{i}-{j}", help=TIPS["next_question"]):
                         ss.pending_q = sq
     voice_ok = wf.llm.can_transcribe
+    limits = wf.settings
     submitted = st.chat_input("Ask, " + ("speak, " if voice_ok else "") + "or attach a PDF, image or spreadsheet",
-                              accept_file="multiple", file_type=SUPPORTED_TYPES, max_upload_size=25,
-                              accept_audio=voice_ok)
-    voice = False
+                              accept_file="multiple", file_type=SUPPORTED_TYPES, max_upload_size=limits.max_upload_mb,
+                              accept_audio=voice_ok, max_chars=limits.max_question_chars)
+    voice, counted, visitor = False, False, visitor_id()
     if submitted is None:
         question, uploads = ss.pop("pending_q", None), []
     else:
         question, uploads = submitted.text or "", list(submitted.files or [])
+        if len(uploads) > limits.max_files_per_message:
+            st.warning(f"You can attach up to {limits.max_files_per_message} files at a time; "
+                       f"I'll read the first {limits.max_files_per_message}.")
+            uploads = uploads[:limits.max_files_per_message]
         audio = getattr(submitted, "audio", None)
         if audio is not None and not question.strip():
-            with st.spinner("Listening…"):
-                question = wf.llm.transcribe(audio.getvalue(), getattr(audio, "name", "") or "question.wav")
-            voice = bool(question)
-            if not question:
-                st.warning("Sorry, I couldn't make out that recording. Please try again or type your question.")
-        if uploads and not question.strip():
+            usage = wf.usage.check(visitor)  # check limits before paying for transcription
+            counted = True
+            if not usage.allowed:
+                st.warning(usage.message)
+            else:
+                with st.spinner("Listening…"):
+                    question = wf.llm.transcribe(audio.getvalue(), getattr(audio, "name", "") or "question.wav")
+                voice = bool(question)
+                if not question:
+                    st.warning("Sorry, I couldn't make out that recording. Please try again or type your question.")
+        if uploads and not question.strip() and not (counted and not voice):
             question = "Summarize the attached file(s) in plain language and explain any financial terms in them."
     if question:
+        verdict = wf.check(question, None if counted else visitor)  # before reading files (image reading costs)
+        shown, _ = redact_pii(question)  # never echo card or account numbers back on screen
+        if not verdict.allowed:
+            ss.chat.append({"role": "user", "content": shown, "voice": voice, "files": []})
+            ss.chat.append({"role": "assistant", "content": verdict.message, "suggestions": [], "meta": None})
+            st.rerun()
         files = []
         if uploads:
             with st.spinner("Reading files…"):
                 files = [read_file(f.name, f.getvalue(), wf.llm) for f in uploads]
-        ss.chat.append({"role": "user", "content": question, "voice": voice,
+        ss.chat.append({"role": "user", "content": shown, "voice": voice,
                         "files": [{"name": d["name"], "note": d["note"]} for d in files]})
         with st.spinner("Thinking…"):
             r = wf.chat(question, ss.thread_id, portfolio=current_portfolio(), user_profile={"risk_profile": risk},
@@ -325,7 +353,7 @@ with tab_mkt:
                 labels.add(q["freshness"]["label"])
             else:
                 col.metric(sym, "—", help=OVERVIEW_TIPS.get(sym))
-        st.markdown(f"<div class='freshness'>{' · '.join(sorted(labels))}</div>", unsafe_allow_html=True)
+        st.markdown(f"<div class='freshness'>{html.escape(' · '.join(sorted(labels)))}</div>", unsafe_allow_html=True)
         sym = st.selectbox("Price history", sorted(wf.market.securities), index=sorted(wf.market.securities).index("SPY"),
                            help=TIPS["price_history"],
                            format_func=lambda t: f"{t} · {wf.market.info(t).get('name', '')}".rstrip(" ·"))
@@ -358,7 +386,8 @@ with tab_mkt:
         st.caption(TIPS["headlines"])
         news = wf.market.get_news([sym])
         for n in news["articles"][:6]:
-            title = f"[{n['title']}]({n['url']})" if n["url"] else n["title"]
+            url = safe_url(n.get("url"))  # news links come from outside sources: only plain web links
+            title = f"[{n['title']}]({url})" if url else n["title"]
             mood = "🟢" if "Bullish" in n["sentiment_label"] else "🔴" if "Bearish" in n["sentiment_label"] else "⚪"
             st.markdown(no_math(f"- {title} — {n['source']} · {mood} {n['sentiment_label']}"))
 
