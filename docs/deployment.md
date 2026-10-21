@@ -1,5 +1,7 @@
 # Deployment
 
+**Live:** https://virgogeetu-ai-finance.streamlit.app (Streamlit Community Cloud, demo mode: no API keys, live prices from Yahoo Finance).
+
 ## Streamlit Community Cloud (free, recommended)
 
 The app deploys straight from GitHub and redeploys on every push.
@@ -9,7 +11,7 @@ The app deploys straight from GitHub and redeploys on every push.
    - Repository: `virgogeetu/ai-finance-assistant`
    - Branch: `main`
    - Main file path: `ui/app.py`
-   - App URL: pick a name, e.g. `ai-finance-assistant`
+   - App URL: pick a unique name, e.g. `virgogeetu-ai-finance` (`ai-finance-assistant` is taken, and the profanity filter rejects names containing "assistant")
 3. Open **Advanced settings** and choose **Python 3.12**.
 4. Click **Deploy**. The first build takes a few minutes while it installs `requirements.txt`; the search index is built automatically on first start.
 

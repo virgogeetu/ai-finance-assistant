@@ -5,7 +5,7 @@ A multi-agent financial-education assistant: six specialised agents orchestrated
 
 > Educational tool only. It does not provide personalised investment, tax or legal advice.
 
-**Source code:** https://github.com/virgogeetu/ai-finance-assistant
+**Live app:** https://virgogeetu-ai-finance.streamlit.app · **Source code:** https://github.com/virgogeetu/ai-finance-assistant
 
 ## Highlights
 

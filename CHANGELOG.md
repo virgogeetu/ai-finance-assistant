@@ -2,6 +2,13 @@
 
 All changes made to this project, newest first.
 
+## 2026-10-21 — Live website
+
+- Deployed on Streamlit Community Cloud: **https://virgogeetu-ai-finance.streamlit.app**, from `virgogeetu/ai-finance-assistant`, branch `main`, file `ui/app.py`, in demo mode (no API keys; live market data from Yahoo Finance).
+- Python version: Streamlit Cloud's default (the Advanced settings step was skipped); it can be changed under the app's **Settings**.
+- Checked on the live site: welcome tour appears for new visitors; "How can I evade taxes on my side income?" is refused by the guardrails; "How is AAPL doing?" returns a live quote ("Live, fetched just now") with trend explanation and follow-up suggestions.
+- `docs/deployment.md`: live link added; notes that `ai-finance-assistant.streamlit.app` is taken by another app and that Streamlit's profanity filter rejects subdomains containing "assistant".
+
 ## 2026-10-21 — Published on GitHub
 
 - Public repository: https://github.com/virgogeetu/ai-finance-assistant (branch `main`, 4 commits, 78 files). Verified on GitHub that no `.env`, secrets, cache or local-tool files were uploaded; API keys stay only on the local machine.
