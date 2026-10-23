@@ -34,7 +34,7 @@ Where each evaluation criterion is met, with the files and tests that show it.
 |---|---|
 | **Security** | Guardrails for public hosting: misuse and prompt-injection filters, personal-data redaction, key scrubbing, per-visitor and site-wide usage limits, file-bomb limits, safe links, hidden error details. `core/guardrails.py`, `docs/security.md`, `tests/test_guardrails.py` |
 | **Code organization (5)** | Layered packages (core / agents / rag / data / utils / workflow), pure maths separated from I/O, provider and agent interfaces, typed state, lint-clean with ruff (`pyproject.toml`). |
-| **Documentation (5)** | `README.md`, `docs/architecture.md` (data-flow and sequence diagrams), `docs/user_guide.md`, `docs/developer_guide.md` (config reference, adding agents and providers), `docs/mcp.md`, `docs/research.md`, `docs/roadmap.md`, `docs/demo_script.md`, `docs/testing_checklist.md` (printable test pass), `CHANGELOG.md`. |
+| **Documentation (5)** | `README.md`, `docs/workflow.svg` (end-to-end workflow diagram, shown in the README), `docs/architecture.md` (data-flow and sequence diagrams), `docs/user_guide.md`, `docs/developer_guide.md` (config reference, adding agents and providers), `docs/mcp.md`, `docs/research.md`, `docs/roadmap.md`, `docs/demo_script.md`, `docs/testing_checklist.md` (printable test pass), `CHANGELOG.md`. |
 | **Testing (5)** | 114 offline tests (unit, integration, MCP, headless UI); about 96% line coverage of `src/` and `mcp_server/`, enforced at 90% in `pyproject.toml`; network, LLMs and SDKs replaced by fakes. |
 
 ## Innovation (bonus)

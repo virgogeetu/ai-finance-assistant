@@ -2,6 +2,11 @@
 
 All changes made to this project, newest first.
 
+## 2026-10-23 — Workflow diagram
+
+- New `docs/workflow.svg`: one-page diagram of how the whole project works, in six stages: entry points (website, terminal, Claude Desktop) with voice and file preparation → guardrails → LangGraph router, six agents with the market→news hand-off and the Q&A fallback, and the compose step → tools (knowledge base, market data, calculators, AI writer, memory) → the answer → GitHub and Streamlit Community Cloud hosting. It uses the app's soft color palette, with an explicit background so it reads well in GitHub's dark mode.
+- Shown at the top of `README.md` ("How it works") and `docs/architecture.md` ("The big picture"); listed in `docs/rubric_map.md`.
+
 ## 2026-10-21 — Live website
 
 - Deployed on Streamlit Community Cloud: **https://virgogeetu-ai-finance.streamlit.app**, from `virgogeetu/ai-finance-assistant`, branch `main`, file `ui/app.py`, in demo mode (no API keys; live market data from Yahoo Finance).

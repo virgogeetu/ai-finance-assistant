@@ -1,0 +1,196 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1200" width="1200" height="1200" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+  <title>AI Finance Assistant: how a question flows through the system</title>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#5A6870"/>
+    </marker>
+    <marker id="arrowGreen" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#3E8E6E"/>
+    </marker>
+    <style>
+      .title { font-size: 26px; font-weight: 800; fill: #2B3A42; }
+      .subtitle { font-size: 15px; fill: #5A6870; }
+      .section { font-size: 13px; font-weight: 800; fill: #3E8E6E; letter-spacing: .08em; }
+      .h { font-size: 15px; font-weight: 700; fill: #2B3A42; }
+      .t { font-size: 12.5px; fill: #4A5A63; }
+      .small { font-size: 12px; fill: #5A6870; font-style: italic; }
+      .box { fill: #FFFFFF; stroke: #E6DDD0; stroke-width: 1.5; }
+      .entry { fill: #EAF4EE; stroke: #9CC9B4; stroke-width: 1.5; }
+      .guard { fill: #FDF1EF; stroke: #E9B4AC; stroke-width: 1.5; }
+      .chip { fill: #FFFFFF; stroke: #E9B4AC; stroke-width: 1.2; }
+      .agent { fill: #FFFFFF; stroke: #3E8E6E; stroke-width: 1.5; }
+      .tool { fill: #FFF6E8; stroke: #E0C08A; stroke-width: 1.5; }
+      .flow { stroke: #5A6870; stroke-width: 2; fill: none; }
+      .handoff { stroke: #3E8E6E; stroke-width: 2; fill: none; stroke-dasharray: 5 4; }
+    </style>
+  </defs>
+
+  <!-- background -->
+  <rect x="0" y="0" width="1200" height="1200" fill="#FBF8F3"/>
+  <text x="60" y="52" class="title">🌱 AI Finance Assistant: how it works</text>
+  <text x="60" y="78" class="subtitle">One question's journey, from the chat box to the answer, and how the site is hosted.</text>
+
+  <!-- 1. You ask -->
+  <text x="60" y="118" class="section">1 · YOU ASK</text>
+  <rect x="60" y="128" width="380" height="84" rx="14" class="entry"/>
+  <text x="80" y="156" class="h">💻 Website (Streamlit)</text>
+  <text x="80" y="178" class="t">Ask · Portfolio · Markets · Goals · Help tabs</text>
+  <text x="80" y="198" class="t">Type ⌨️, speak 🎙️ or attach files 📎</text>
+
+  <rect x="470" y="128" width="270" height="84" rx="14" class="entry"/>
+  <text x="490" y="156" class="h">⌨️ Terminal chat</text>
+  <text x="490" y="178" class="t">scripts/cli.py</text>
+  <text x="490" y="198" class="t">Same brain, plain text</text>
+
+  <rect x="770" y="128" width="370" height="84" rx="14" class="entry"/>
+  <text x="790" y="156" class="h">🤖 Claude Desktop (MCP server)</text>
+  <text x="790" y="178" class="t">8 tools: ask, search, quote, portfolio,</text>
+  <text x="790" y="198" class="t">goal, market overview, trend, news</text>
+
+  <!-- input prep (web only) -->
+  <rect x="60" y="238" width="180" height="70" rx="12" class="box"/>
+  <text x="74" y="262" class="h">🎙️ Voice → text</text>
+  <text x="74" y="282" class="t">Speech-to-text</text>
+  <text x="74" y="298" class="t">(OpenAI, if key set)</text>
+  <rect x="260" y="238" width="180" height="70" rx="12" class="box"/>
+  <text x="274" y="262" class="h">📎 Files → text</text>
+  <text x="274" y="282" class="t">PDF, Word, Excel, CSV,</text>
+  <text x="274" y="298" class="t">images &amp; scans (vision)</text>
+
+  <path d="M150 212 V236" class="flow" marker-end="url(#arrow)"/>
+  <path d="M350 212 V236" class="flow" marker-end="url(#arrow)"/>
+  <path d="M150 308 V346" class="flow" marker-end="url(#arrow)"/>
+  <path d="M350 308 V346" class="flow" marker-end="url(#arrow)"/>
+  <path d="M605 212 V346" class="flow" marker-end="url(#arrow)"/>
+  <path d="M955 212 V346" class="flow" marker-end="url(#arrow)"/>
+
+  <!-- 2. Guardrails -->
+  <rect x="60" y="348" width="1080" height="104" rx="16" class="guard"/>
+  <text x="80" y="374" class="section" style="fill:#B4483C">2 · GUARDRAILS (BEFORE ANYTHING ELSE RUNS)</text>
+  <rect x="80" y="386" width="250" height="52" rx="10" class="chip"/>
+  <text x="94" y="408" class="h" style="font-size:13.5px">🚫 Misuse &amp; injection</text>
+  <text x="94" y="427" class="t">fraud, tax evasion, "ignore rules"</text>
+  <rect x="345" y="386" width="250" height="52" rx="10" class="chip"/>
+  <text x="359" y="408" class="h" style="font-size:13.5px">🔒 Personal data removed</text>
+  <text x="359" y="427" class="t">card, SSN, account numbers, email</text>
+  <rect x="610" y="386" width="250" height="52" rx="10" class="chip"/>
+  <text x="624" y="408" class="h" style="font-size:13.5px">⏱️ Usage &amp; size limits</text>
+  <text x="624" y="427" class="t">8/min · 60/hour · 2,000/day</text>
+  <rect x="875" y="386" width="245" height="52" rx="10" class="chip" style="fill:#FDF1EF"/>
+  <text x="889" y="408" class="h" style="font-size:13.5px">↩️ Blocked?</text>
+  <text x="889" y="427" class="t">Friendly refusal; stops here</text>
+
+  <path d="M460 452 V504" class="flow" marker-end="url(#arrow)"/>
+
+  <!-- 3. LangGraph workflow container -->
+  <rect x="60" y="476" width="800" height="420" rx="18" fill="#F3EEE6" stroke="#E6DDD0" stroke-width="1.5"/>
+  <text x="80" y="498" class="section">3 · LANGGRAPH WORKFLOW</text>
+
+  <rect x="180" y="506" width="560" height="64" rx="14" class="box" style="stroke:#3E8E6E"/>
+  <text x="200" y="532" class="h">🧭 Router: which specialist(s) should answer?</text>
+  <text x="200" y="554" class="t">AI picks up to 2 agents (keyword rules as backup); "what if…" follow-ups stay on topic</text>
+
+  <path d="M460 570 V604" class="flow" marker-end="url(#arrow)"/>
+
+  <!-- six agents -->
+  <rect x="80" y="606" width="240" height="70" rx="12" class="agent"/>
+  <text x="96" y="632" class="h">📘 Finance Q&amp;A</text>
+  <text x="96" y="652" class="t">Concepts, definitions,</text>
+  <text x="96" y="668" class="t">glossary terms, your files</text>
+
+  <rect x="340" y="606" width="240" height="70" rx="12" class="agent"/>
+  <text x="356" y="632" class="h">📊 Portfolio review</text>
+  <text x="356" y="652" class="t">Allocation, risk, rebalancing,</text>
+  <text x="356" y="668" class="t">past-shock stress test</text>
+
+  <rect x="600" y="606" width="240" height="70" rx="12" class="agent"/>
+  <text x="616" y="632" class="h">📈 Market snapshot</text>
+  <text x="616" y="652" class="t">Live quotes, trends,</text>
+  <text x="616" y="668" class="t">50-day average, volatility</text>
+
+  <rect x="80" y="706" width="240" height="70" rx="12" class="agent"/>
+  <text x="96" y="732" class="h">🎯 Goal planner</text>
+  <text x="96" y="752" class="t">Monthly savings needed,</text>
+  <text x="96" y="768" class="t">1,000 simulated markets</text>
+
+  <rect x="340" y="706" width="240" height="70" rx="12" class="agent"/>
+  <text x="356" y="732" class="h">🧾 Tax education</text>
+  <text x="356" y="752" class="t">401(k), IRA, HSA, 529,</text>
+  <text x="356" y="768" class="t">capital gains, 2026 limits</text>
+
+  <rect x="600" y="706" width="240" height="70" rx="12" class="agent"/>
+  <text x="616" y="732" class="h">📰 News in context</text>
+  <text x="616" y="752" class="t">Headlines and sentiment,</text>
+  <text x="616" y="768" class="t">explained for beginners</text>
+
+  <path d="M780 676 V704" class="handoff" marker-end="url(#arrowGreen)"/>
+  <text x="772" y="695" class="small" text-anchor="end" style="fill:#3E8E6E">hand-off on "why?"</text>
+
+  <text x="460" y="800" class="small" text-anchor="middle">If an agent fails, Finance Q&amp;A answers instead, so the user always gets a reply</text>
+  <path d="M460 806 V820" class="flow" marker-end="url(#arrow)"/>
+
+  <rect x="180" y="822" width="560" height="60" rx="14" class="box" style="stroke:#3E8E6E"/>
+  <text x="200" y="847" class="h">🧩 Compose the answer</text>
+  <text x="200" y="868" class="t">Merge agents' replies · remove duplicate sources · add disclaimer · suggest next questions</text>
+
+  <!-- 4. Tools column -->
+  <text x="900" y="498" class="section">4 · TOOLS AGENTS USE</text>
+  <rect x="900" y="506" width="240" height="72" rx="12" class="tool"/>
+  <text x="914" y="530" class="h">📚 Knowledge base (RAG)</text>
+  <text x="914" y="550" class="t">102 articles + 104 terms</text>
+  <text x="914" y="567" class="t">FAISS search → cited sources</text>
+
+  <rect x="900" y="584" width="240" height="72" rx="12" class="tool"/>
+  <text x="914" y="608" class="h">💹 Market data</text>
+  <text x="914" y="628" class="t">Alpha Vantage → Yahoo →</text>
+  <text x="914" y="645" class="t">cache → sample (labelled)</text>
+
+  <rect x="900" y="662" width="240" height="72" rx="12" class="tool"/>
+  <text x="914" y="686" class="h">🧮 Calculators</text>
+  <text x="914" y="706" class="t">Portfolio maths, Monte Carlo,</text>
+  <text x="914" y="723" class="t">stress tests, price trends</text>
+
+  <rect x="900" y="740" width="240" height="72" rx="12" class="tool"/>
+  <text x="914" y="764" class="h">✍️ AI writer (LLM)</text>
+  <text x="914" y="784" class="t">Turns tool drafts into plain</text>
+  <text x="914" y="801" class="t">English; numbers stay locked</text>
+
+  <rect x="900" y="818" width="240" height="72" rx="12" class="tool"/>
+  <text x="914" y="842" class="h">🧠 Memory</text>
+  <text x="914" y="862" class="t">Per conversation: messages,</text>
+  <text x="914" y="879" class="t">files, last stocks and goal</text>
+
+  <path d="M864 690 H896" class="flow" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+
+  <!-- 5. Answer -->
+  <path d="M460 882 V936" class="flow" marker-end="url(#arrow)"/>
+  <text x="60" y="930" class="section">5 · YOU GET</text>
+  <rect x="60" y="938" width="1080" height="84" rx="16" class="entry"/>
+  <text x="80" y="966" class="h">💬 A plain-language answer, built for beginners</text>
+  <text x="80" y="990" class="t">Explanation · numbered sources · charts · data-freshness labels · "You could ask next" buttons · disclaimer</text>
+  <text x="80" y="1010" class="small">Follow-up questions reuse the memory, so "what if I invest $500 a month?" keeps your goal.</text>
+
+  <!-- 6. Hosting -->
+  <text x="60" y="1066" class="section">6 · HOW IT'S BUILT &amp; HOSTED</text>
+  <rect x="60" y="1076" width="320" height="76" rx="14" class="box"/>
+  <text x="76" y="1102" class="h">🐙 GitHub</text>
+  <text x="76" y="1122" class="t">virgogeetu/ai-finance-assistant</text>
+  <text x="76" y="1140" class="t">114 automated tests guard changes</text>
+
+  <path d="M380 1114 H436" class="flow" marker-end="url(#arrow)"/>
+  <text x="408" y="1106" class="small" text-anchor="middle">push</text>
+
+  <rect x="440" y="1076" width="340" height="76" rx="14" class="box"/>
+  <text x="456" y="1102" class="h">☁️ Streamlit Community Cloud</text>
+  <text x="456" y="1122" class="t">Rebuilds automatically on every push</text>
+  <text x="456" y="1140" class="t">Optional API keys kept as secrets</text>
+
+  <path d="M780 1114 H816" class="flow" marker-end="url(#arrow)"/>
+
+  <rect x="820" y="1076" width="320" height="76" rx="14" class="entry"/>
+  <text x="836" y="1102" class="h">🌐 Live website</text>
+  <text x="836" y="1122" class="t">virgogeetu-ai-finance.streamlit.app</text>
+  <text x="836" y="1140" class="t">Demo mode: free, no keys needed</text>
+
+  <text x="600" y="1184" class="small" text-anchor="middle">Educational tool only, not financial advice. Diagram: docs/workflow.svg</text>
+</svg>

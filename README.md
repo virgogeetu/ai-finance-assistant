@@ -7,6 +7,10 @@ A multi-agent financial-education assistant: six specialised agents orchestrated
 
 **Live app:** https://virgogeetu-ai-finance.streamlit.app · **Source code:** https://github.com/virgogeetu/ai-finance-assistant
 
+## How it works
+
+![Workflow: you ask → guardrails → LangGraph router and six specialist agents → tools (knowledge base, market data, calculators, AI writer, memory) → plain-language answer; hosted from GitHub on Streamlit Community Cloud](docs/workflow.svg)
+
 ## Highlights
 
 - **Six agents, one conversation.** Concepts, portfolio review, market snapshot, goal planning, news and taxes, routed by an LLM (with a keyword fallback) and able to hand off to each other ("Why is NVDA down?" → market + news).

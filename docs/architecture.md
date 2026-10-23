@@ -1,5 +1,11 @@
 # Architecture
 
+## The big picture
+
+![End-to-end workflow of the AI Finance Assistant](workflow.svg)
+
+Six stages: (1) a question arrives from the website, terminal or Claude Desktop, with voice and files turned into text; (2) guardrails check it before anything else runs; (3) the LangGraph router picks specialist agents, which may hand off to each other, and a compose step merges their replies; (4) agents use shared tools; (5) the visitor gets a cited, plain-language answer with suggested follow-ups; (6) code on GitHub deploys automatically to Streamlit Community Cloud. The sections below go into each part.
+
 ## Data flow
 
 ```mermaid
